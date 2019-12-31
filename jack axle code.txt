@@ -1,0 +1,72 @@
+'Deactivating End 1 Tap
+If End1Tap = False Then 
+	Feature.IsActive("Hole1") = False
+End If
+'Deactivating End 2 Tap
+If End2Tap = False Then 
+	Feature.IsActive("Hole2") = False
+End If
+'Activating End 1 Tap
+If End1Tap = True Then 
+	Feature.IsActive("Hole1") = True
+End If
+'Activating End 2 Tap
+If End2Tap = True Then 
+	Feature.IsActive("Hole2") = True
+End If
+'Deactivating End 1 Round
+If End1Round = False Then
+	Feature.IsActive("Extrusion2") = False
+End If
+'Deactivating End 2 Round
+If End2Round = False Then
+	Feature.IsActive("Extrusion3") = False
+End If
+'Activating End 1 Round
+If End1Round = True Then 
+	Feature.IsActive("Extrusion2") = True
+End If
+'Activating End 2 Round
+If End2Round = True Then 
+	Feature.IsActive("Extrusion3") = True
+End If
+'Checking possible errors/collisions/etc with End 1 Tap, Thread Depth, & Hole Depth
+If End1Tap = True Then
+	If Thread_Depth1+0.00 > Hole_Depth1 Then 'You may adjust the constant being added to fit your team's standards.
+		MessageBox.Show("Thread depth cannot be greater than the hole depth.", "Impossible Depths") 
+		Hole_Depth1 = Thread_Depth1+0.00
+	End If
+	If Hole_Depth1 <= 0 Then
+		MessageBox.Show("Hole Depth cannot be 0.", "Impossible Depth")
+		Hole_Depth1 = .25
+	End If
+End If
+'Checking possible errors/collisions/etc with End 2 Tap, Thread Depth, & Hole Depth
+If End2Tap = True Then
+	If Thread_Depth2+0.00 > Hole_Depth2 Then 'You may adjust the constant being added to fit your team's standards.
+		MessageBox.Show("Thread depth cannot be greater than the hole depth.", "Impossible Depths") 
+		Hole_Depth2 = Thread_Depth2+0.00
+	End If
+	If Hole_Depth2 <= 0 Then
+		MessageBox.Show("Hole Depth cannot be 0.", "Impossible Depth")
+		Hole_Depth2 = .25
+	End If
+End If
+'Changing tap type for End 1
+If End1Tap = True Then
+	If threadType1 = "10-32" Then
+		Feature.SetThread("Hole1","ANSI Unified Screw Threads", "10-32 UNF", "2B")
+	End If
+	If threadType1 = "1/4-20" Then
+		Feature.SetThread("Hole1","ANSI Unified Screw Threads", "1/4-20 UNC", "2B")
+	End If
+End If
+'Changing tap type for End 2
+If End2Tap = True Then
+	If threadType2 = "10-32" Then
+		Feature.SetThread("Hole2","ANSI Unified Screw Threads", "10-32 UNF", "2B")
+	End If
+	If threadType2 = "1/4-20" Then
+		Feature.SetThread("Hole2","ANSI Unified Screw Threads", "1/4-20 UNC", "2B")
+	End If
+End If
